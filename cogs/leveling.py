@@ -119,15 +119,17 @@ class Leveling(commands.Cog):
         cursor.execute("""
         SELECT user_id, level, total_xp FROM users WHERE guild_id = ?
         ORDER BY level DESC, total_xp DESC LIMIT 10
-        """, (ctx.guild.id,))
+        """, (str(ctx.guild.id),))
         results = cursor.fetchall()
+
+        print("results", results)
 
         if not results:
             await ctx.send("Le classement est vide.")
         else:
             leaderboard = "🏆 Classement des membres 🏆\n"
             for i, (user_id, level, xp) in enumerate(results, start=1):
-                member = ctx.guild.get_member(user_id)
+                member = ctx.guild.get_member(int(user_id))
                 leaderboard += f"{i}. {member.display_name if member else 'Inconnu'} - Niveau {level} ({xp} XP)\n"
             await ctx.send(leaderboard)
 
