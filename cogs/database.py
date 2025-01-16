@@ -3,13 +3,13 @@ from dotenv import load_dotenv
 import libsql_experimental as libsql
 import discord
 from discord.ext import commands
-from .migrations.create_db import create_turbo_db
+from .migrations.create_db import create_turso_db
 
 load_dotenv()
 
 AUTHORIZED_CHANNEL_ID : str = os.getenv("DEBUG_CHANNEL_ID") or ""
-TURBO_URL: str = os.getenv("TURBO_URL") or ""
-TURBO_TOKEN: str = os.getenv("TURBO_TOKEN") or ""
+TURSO_URL: str = os.getenv("TURSO_URL") or ""
+TURSO_TOKEN: str = os.getenv("TURSO_TOKEN") or ""
 
 class Database(commands.Cog):
     def __init__(self, bot):
@@ -33,7 +33,7 @@ class Database(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def init_db(self, ctx):
         await ctx.send(f"Création de DB initialisée ! 🎉")
-        create_turbo_db()
+        create_turso_db()
         await ctx.send(f"Base de donnée créée avec succès ! 🎉")
 
     @commands.command()
@@ -44,7 +44,7 @@ class Database(commands.Cog):
             await ctx.send("Veuillez spécifier une quantité positive d'XP.")
             return
 
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))
@@ -77,7 +77,7 @@ class Database(commands.Cog):
             await ctx.send("Veuillez spécifier une quantité positive d'XP.")
             return
 
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))

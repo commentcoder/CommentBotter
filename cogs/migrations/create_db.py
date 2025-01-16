@@ -5,18 +5,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 WELCOME_CHANNEL_ID: str = os.getenv("WELCOME_CHANNEL_ID") or ""
-TURBO_URL: str = os.getenv("TURBO_URL") or ""
-TURBO_TOKEN: str = os.getenv("TURBO_TOKEN") or ""
+TURSO_URL: str = os.getenv("TURSO_URL") or ""
+TURSO_TOKEN: str = os.getenv("TURSO_TOKEN") or ""
 
-def create_turbo_db():
-    if not TURBO_URL or not TURBO_TOKEN:
+def create_turso_db():
+    if not TURSO_URL or not TURSO_TOKEN:
         print("URL ou token manquants !")
         return
 
-    print(f"Connexion à la base de données avec URL: {TURBO_URL} et Token: {TURBO_TOKEN}")
+    print(f"Connexion à la base de données avec URL: {TURSO_URL} et Token: {TURSO_TOKEN}")
  
     try:
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         # Créer la table des utilisateurs
@@ -85,5 +85,5 @@ def create_turbo_db():
 #     conn.close()
 
 # if __name__ == "__main__":
-#     create_turbo_db()
+#     create_turso_db()
 #     print("Base de données 'leveling.db' et les tables ont été créées avec succès.")

@@ -9,8 +9,8 @@ from discord.ext import commands
 load_dotenv()
 
 WELCOME_CHANNEL_ID : str = os.getenv("WELCOME_CHANNEL_ID") or ""
-TURBO_URL : str = os.getenv("TURBO_URL") or ""
-TURBO_TOKEN : str = os.getenv("TURBO_TOKEN") or ""
+TURSO_URL : str = os.getenv("TURSO_URL") or ""
+TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
 
 class Welcome(commands.Cog):
     def __init__(self, bot):
@@ -46,7 +46,7 @@ class Welcome(commands.Cog):
         self.invites[member.guild.id] = updated_invites
 
         if inviter:
-            conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+            conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
             cursor = conn.cursor()
             cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
             result = cursor.fetchone()
@@ -77,7 +77,7 @@ class Welcome(commands.Cog):
     @commands.hybrid_command()
     async def invited(self, ctx, member: discord.Member):
         """Donne la liste des membres invités par un membre."""
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))

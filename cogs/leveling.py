@@ -7,8 +7,8 @@ from discord.ext import commands
 
 load_dotenv()
 
-TURBO_URL: str = os.getenv("TURBO_URL") or ""
-TURBO_TOKEN: str = os.getenv("TURBO_TOKEN") or ""
+TURSO_URL: str = os.getenv("TURSO_URL") or ""
+TURSO_TOKEN: str = os.getenv("TURSO_TOKEN") or ""
 
 
 def calculate_level(total_xp):
@@ -34,7 +34,7 @@ class Leveling(commands.Cog):
         user_id = message.author.id
         guild_id = message.guild.id
         current_time = int(time.time())
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute(
@@ -95,7 +95,7 @@ class Leveling(commands.Cog):
     async def rank(self, ctx, member: discord.Member):
         """Donne le niveau d'un membre."""
         member = member or ctx.author
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("""
@@ -113,7 +113,7 @@ class Leveling(commands.Cog):
     @commands.hybrid_command()
     async def levels(self, ctx):
         """Donne le classement des membres avec le plus gros niveau."""
-        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
+        conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("""
