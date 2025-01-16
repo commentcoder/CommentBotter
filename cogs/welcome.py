@@ -48,7 +48,7 @@ class Welcome(commands.Cog):
         if inviter:
             conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
             cursor = conn.cursor()
-            cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (inviter.id, member.guild.id))
+            cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
             result = cursor.fetchone()
 
             if result:
@@ -64,7 +64,7 @@ class Welcome(commands.Cog):
                 invited_members = [str(member.id)]
 
             cursor.execute("INSERT OR REPLACE INTO invites (user_id, guild_id, last_invite_time, invited_members) VALUES (?, ?, ?, ?)",
-                           (inviter.id, member.guild.id, time.time(), json.dumps(invited_members)))
+                           (str(inviter.id), str(member.guild.id), time.time(), json.dumps(invited_members)))
             conn.commit()
             conn.close()
 
@@ -80,7 +80,7 @@ class Welcome(commands.Cog):
         conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
+        cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))
         result = cursor.fetchone()
 
         if result:

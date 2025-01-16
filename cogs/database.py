@@ -47,7 +47,7 @@ class Database(commands.Cog):
         conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
+        cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))
         result = cursor.fetchone()
 
         total_xp = result[0] if result else 0
@@ -56,12 +56,12 @@ class Database(commands.Cog):
         if result:
             cursor.execute(
                 "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
-                (total_xp, member.id, ctx.guild.id)
+                (total_xp, str(member.id), str(ctx.guild.id))
             )
         else:
             cursor.execute(
                 "INSERT INTO users (user_id, guild_id, total_xp, level) VALUES (?, ?, ?, ?)",
-                (member.id, ctx.guild.id, total_xp, 0)
+                (str(member.id), str(ctx.guild.id), total_xp, 0)
             )
 
         conn.commit()
@@ -80,7 +80,7 @@ class Database(commands.Cog):
         conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
+        cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (str(member.id), str(ctx.guild.id)))
         result = cursor.fetchone()
 
         if not result:
@@ -92,7 +92,7 @@ class Database(commands.Cog):
 
         cursor.execute(
             "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
-            (total_xp, member.id, ctx.guild.id)
+            (total_xp, str(member.id), str(ctx.guild.id))
         )
 
         conn.commit()

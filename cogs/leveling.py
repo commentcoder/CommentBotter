@@ -39,7 +39,7 @@ class Leveling(commands.Cog):
 
         cursor.execute(
             "SELECT total_xp, level, last_message_time FROM users WHERE user_id = ? AND guild_id = ?",
-            (user_id, guild_id),
+            (str(user_id), str(guild_id)),
         )
         result = cursor.fetchone()
 
@@ -58,12 +58,12 @@ class Leveling(commands.Cog):
         if not result:
             cursor.execute(
                 "INSERT INTO users (user_id, guild_id, total_xp, level, last_message_time) VALUES (?, ?, ?, ?, ?)",
-                (user_id, guild_id, total_xp, level, current_time),
+                (str(user_id), str(guild_id), total_xp, level, current_time),
             )
         else:
             cursor.execute(
                 "UPDATE users SET total_xp = ?, level = ?, last_message_time = ? WHERE user_id = ? AND guild_id = ?",
-                (total_xp, level, current_time, user_id, guild_id),
+                (total_xp, level, current_time, str(user_id), str(guild_id)),
             )
 
         conn.commit()
@@ -100,7 +100,7 @@ class Leveling(commands.Cog):
 
         cursor.execute("""
         SELECT total_xp, level FROM users WHERE user_id = ? AND guild_id = ?
-        """, (member.id, ctx.guild.id))
+        """, (str(member.id), str(ctx.guild.id)))
         result = cursor.fetchone()
 
         if result is None:
