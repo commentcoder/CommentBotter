@@ -2,6 +2,7 @@
 .env.dev
 .env.staging
 .env.prod
+db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
