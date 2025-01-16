@@ -12,6 +12,8 @@ WELCOME_CHANNEL_ID : str = os.getenv("WELCOME_CHANNEL_ID") or ""
 TURSO_URL : str = os.getenv("TURSO_URL") or ""
 TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
 
+INVITE_XP = 50
+
 class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -51,12 +53,26 @@ class Welcome(commands.Cog):
             cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
             result = cursor.fetchone()
 
+            total_xp = result[0] if result else 0
+
             if result:
                 invited_members = json.loads(result[0]) 
                 if str(member.id) in invited_members:
                     await welcome_channel.send(f"{inviter.mention}, vous avez déjà invité {member.mention} !")
                     conn.close()
                     return
+                
+                total_xp = result[0] if result else 0
+                total_xp += INVITE_XP
+                cursor.execute(
+                    "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
+                    (total_xp, str(member.id), str(member.guild.id))
+                )
+            else:
+                cursor.execute(
+                    "INSERT INTO users (user_id, guild_id, total_xp, level) VALUES (?, ?, ?, ?)",
+                    (str(member.id), str(member.guild.id), total_xp, 0)
+                )
 
             if result:
                 invited_members.append(str(member.id))
@@ -72,7 +88,7 @@ class Welcome(commands.Cog):
                 f"Bienvenue {member.mention} ! (Invité par {inviter.mention} qui a invité : {invites_count} membres)."
             )
         else:
-            await welcome_channel.send(f"Bienvenue {member.mention} !\nJe n'ai pas pu identifier l'inviteur.")
+            await welcome_channel.send(f"Bienvenue {member.mention} !")
 
     @commands.hybrid_command()
     async def invited(self, ctx, member: discord.Member):
