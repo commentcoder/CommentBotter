@@ -1,7 +1,6 @@
 import json
 import libsql_experimental as libsql
 import os
-import sqlite3
 import time
 from dotenv import load_dotenv
 import discord
@@ -78,7 +77,7 @@ class Welcome(commands.Cog):
     @commands.hybrid_command()
     async def invited(self, ctx, member: discord.Member):
         """Donne la liste des membres invités par un membre."""
-        conn = sqlite3.connect('db/leveling.db')
+        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
