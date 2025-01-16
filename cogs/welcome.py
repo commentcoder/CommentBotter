@@ -1,14 +1,17 @@
-import time
 import json
+import libsql_experimental as libsql
 import os
-from dotenv import load_dotenv
 import sqlite3
+import time
+from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 
 load_dotenv()
 
 WELCOME_CHANNEL_ID : str = os.getenv("WELCOME_CHANNEL_ID") or ""
+TURBO_URL : str = os.getenv("TURBO_URL") or ""
+TURBO_TOKEN : str = os.getenv("TURBO_TOKEN") or ""
 
 class Welcome(commands.Cog):
     def __init__(self, bot):
@@ -44,7 +47,7 @@ class Welcome(commands.Cog):
         self.invites[member.guild.id] = updated_invites
 
         if inviter:
-            conn = sqlite3.connect('db/leveling.db')
+            conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
             cursor = conn.cursor()
             cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (inviter.id, member.guild.id))
             result = cursor.fetchone()

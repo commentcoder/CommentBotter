@@ -1,13 +1,15 @@
 import os
 from dotenv import load_dotenv
-import sqlite3
+import libsql_experimental as libsql
 import discord
 from discord.ext import commands
-from .migrations.create_db import create_db
+from .migrations.create_db import create_turbo_db
 
 load_dotenv()
 
 AUTHORIZED_CHANNEL_ID : str = os.getenv("DEBUG_CHANNEL_ID") or ""
+TURBO_URL: str = os.getenv("TURBO_URL") or ""
+TURBO_TOKEN: str = os.getenv("TURBO_TOKEN") or ""
 
 class Database(commands.Cog):
     def __init__(self, bot):
@@ -30,9 +32,8 @@ class Database(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def init_db(self, ctx):
-        if not os.path.exists('db'):
-            os.makedirs('db')
-        create_db()
+        await ctx.send(f"Création de DB initialisée ! 🎉")
+        create_turbo_db()
         await ctx.send(f"Base de donnée créée avec succès ! 🎉")
 
     @commands.command()
@@ -43,7 +44,7 @@ class Database(commands.Cog):
             await ctx.send("Veuillez spécifier une quantité positive d'XP.")
             return
 
-        conn = sqlite3.connect('db/leveling.db')
+        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
@@ -76,7 +77,7 @@ class Database(commands.Cog):
             await ctx.send("Veuillez spécifier une quantité positive d'XP.")
             return
 
-        conn = sqlite3.connect('db/leveling.db')
+        conn = libsql.connect(database=TURBO_URL, auth_token=TURBO_TOKEN)
         cursor = conn.cursor()
 
         cursor.execute("SELECT total_xp FROM users WHERE user_id = ? AND guild_id = ?", (member.id, ctx.guild.id))
