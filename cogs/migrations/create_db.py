@@ -22,8 +22,8 @@ def create_turbo_db():
         # Créer la table des utilisateurs
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            user_id INTEGER PRIMARY KEY,
-            guild_id INTEGER,
+            user_id TEXT PRIMARY KEY,
+            guild_id TEXT,
             xp INTEGER DEFAULT 0,
             total_xp INTEGER DEFAULT 0,
             level INTEGER DEFAULT 1,
@@ -34,8 +34,8 @@ def create_turbo_db():
         # Créer la table des invitations
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS invites (
-            user_id INTEGER,
-            guild_id INTEGER,
+            user_id TEXT,
+            guild_id TEXT,
             last_invite_time INTEGER,
             invited_members TEXT,
             PRIMARY KEY (user_id, guild_id)
