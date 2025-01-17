@@ -64,7 +64,7 @@ class Database(commands.Cog):
                 (str(member.id), str(ctx.guild.id), total_xp, 0)
             )
 
-        # conn.commit()
+        conn.commit()
         # conn.close()
 
         await ctx.send(f"Ajouté {xp} XP à {member.mention}. Nouveau total : {total_xp} XP.")
@@ -95,7 +95,7 @@ class Database(commands.Cog):
             (total_xp, str(member.id), str(ctx.guild.id))
         )
 
-        # conn.commit()
+        conn.commit()
         # conn.close()
 
         await ctx.send(f"Retiré {xp} XP à {member.mention}. Nouveau total : {total_xp} XP.")

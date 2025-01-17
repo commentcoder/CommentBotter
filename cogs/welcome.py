@@ -82,7 +82,7 @@ class Welcome(commands.Cog):
 
             cursor.execute("INSERT OR REPLACE INTO invites (user_id, guild_id, last_invite_time, invited_members) VALUES (?, ?, ?, ?)",
                            (str(inviter.id), str(member.guild.id), time.time(), json.dumps(invited_members)))
-            # conn.commit()
+            conn.commit()
             # conn.close()
 
             await welcome_channel.send(

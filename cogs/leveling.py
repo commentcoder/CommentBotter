@@ -66,7 +66,7 @@ class Leveling(commands.Cog):
                 (total_xp, level, current_time, str(user_id), str(guild_id)),
             )
 
-        # conn.commit()
+        conn.commit()
         # conn.close()
 
         if level > previous_level:
