@@ -40,7 +40,12 @@ class Welcome(commands.Cog):
 
         for updated_invite in updated_invites:
             for old_invite in old_invites:
-                if updated_invite.id == old_invite.id and updated_invite.uses > old_invite.uses:
+                if (
+                    updated_invite.id == old_invite.id
+                    and updated_invite.uses is not None
+                    and old_invite.uses is not None
+                    and updated_invite.uses > old_invite.uses
+                ):
                     inviter = updated_invite.inviter
                     invites_count = updated_invite.uses
                     invite_time = updated_invite.created_at
