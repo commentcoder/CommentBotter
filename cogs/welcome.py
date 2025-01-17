@@ -72,7 +72,7 @@ class Welcome(commands.Cog):
                 total_xp += INVITE_XP
                 cursor.execute(
                     "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
-                    (total_xp, str(member.id), str(member.guild.id))
+                    (total_xp, str(inviter.id), str(member.guild.id))
                 )
             else:
                 cursor.execute(
