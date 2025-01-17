@@ -8,7 +8,7 @@ from discord.ext import commands
 
 load_dotenv()
 
-WELCOME_CHANNEL_ID : str = os.getenv("WELCOME_CHANNEL_ID") or ""
+WELCOME_CHANNEL_ID : int = int(os.getenv("WELCOME_CHANNEL_ID") or 1328935304437956610)
 TURSO_URL : str = os.getenv("TURSO_URL") or ""
 TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
 
