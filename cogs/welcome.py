@@ -64,8 +64,9 @@ class Welcome(commands.Cog):
             if result:
                 invited_members = json.loads(result[0]) 
                 if str(member.id) in invited_members:
-                    await welcome_channel.send(f"{inviter.mention}, vous avez déjà invité {member.mention} !")
+                    # await welcome_channel.send(f"{inviter.mention}, vous avez déjà invité {member.mention} !")
                     # conn.close()
+                    await welcome_channel.send(f"Re {member.mention} !")
                     return
                 
                 total_xp = result[0] if result else 0
