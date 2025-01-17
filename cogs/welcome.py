@@ -26,7 +26,8 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        welcome_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        welcome_channel = (self.bot.get_channel(WELCOME_CHANNEL_ID) \
+            or await self.bot.fetch_channel(WELCOME_CHANNEL_ID))
         if not welcome_channel:
             return
 
