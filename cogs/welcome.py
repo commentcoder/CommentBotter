@@ -69,8 +69,8 @@ class Welcome(commands.Cog):
                     await welcome_channel.send(f"Re {member.mention} !")
                     return
                 
-                total_xp = result[0] if result else 0
-                total_xp += INVITE_XP
+                # total_xp = int(result[0] if result else 0)
+                # total_xp += INVITE_XP
                 cursor.execute(
                     "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
                     (total_xp, str(inviter.id), str(member.guild.id))
