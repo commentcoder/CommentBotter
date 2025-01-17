@@ -1,18 +1,4 @@
-import json
-import libsql_experimental as libsql
-import os
-import time
-from dotenv import load_dotenv
-import discord
 from discord.ext import commands
-
-load_dotenv()
-
-WELCOME_CHANNEL_ID : str = os.getenv("WELCOME_CHANNEL_ID") or ""
-TURSO_URL : str = os.getenv("TURSO_URL") or ""
-TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
-
-INVITE_XP = 50
 
 socials = {
     "youtube": "https://www.youtube.com/channel/UCEztUC2WwKEDkVl9c6oUoTw?sub_confirmation=1",
@@ -22,7 +8,6 @@ socials = {
     "github": "https://github.com/commentcoder",
     "linkedin": "https://linkedin.com/in/thomascollart/"
 }
-
 
 class Social(commands.Cog):
     def __init__(self, bot):
@@ -53,9 +38,6 @@ class Social(commands.Cog):
     async def youtube(self, ctx):
         await ctx.send(socials["youtube"])
     
-
-
-
 
 async def setup(bot):
     await bot.add_cog(Social(bot))
