@@ -59,7 +59,7 @@ class Welcome(commands.Cog):
                 invited_members = json.loads(result[0]) 
                 if str(member.id) in invited_members:
                     await welcome_channel.send(f"{inviter.mention}, vous avez déjà invité {member.mention} !")
-                    conn.close()
+                    # conn.close()
                     return
                 
                 total_xp = result[0] if result else 0
@@ -81,8 +81,8 @@ class Welcome(commands.Cog):
 
             cursor.execute("INSERT OR REPLACE INTO invites (user_id, guild_id, last_invite_time, invited_members) VALUES (?, ?, ?, ?)",
                            (str(inviter.id), str(member.guild.id), time.time(), json.dumps(invited_members)))
-            conn.commit()
-            conn.close()
+            # conn.commit()
+            # conn.close()
 
             await welcome_channel.send(
                 f"Bienvenue {member.mention} ! (Invité par {inviter.mention} qui a invité : {invites_count} membres)."
@@ -109,7 +109,7 @@ class Welcome(commands.Cog):
         else:
             await ctx.send(f"Aucune invitation trouvée pour {member.mention}.")
 
-        conn.close()
+        # conn.close()
 
 async def setup(bot):
     await bot.add_cog(Welcome(bot))

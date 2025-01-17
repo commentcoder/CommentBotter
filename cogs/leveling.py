@@ -48,7 +48,7 @@ class Leveling(commands.Cog):
         last_message_time = result[2] if result and result[2] else 0
 
         if current_time - last_message_time < 60:
-            conn.close()
+            # conn.close()
             return
 
         total_xp += 1
@@ -66,8 +66,8 @@ class Leveling(commands.Cog):
                 (total_xp, level, current_time, str(user_id), str(guild_id)),
             )
 
-        conn.commit()
-        conn.close()
+        # conn.commit()
+        # conn.close()
 
         if level > previous_level:
             await self.update_level_in_nickname(message.author, level)
@@ -108,7 +108,7 @@ class Leveling(commands.Cog):
         else:
             xp, level = result
             await ctx.send(f"{member.mention} est au niveau {level} avec {xp} XP.")
-        conn.close()
+        # conn.close()
 
     @commands.hybrid_command()
     async def levels(self, ctx):
@@ -133,7 +133,7 @@ class Leveling(commands.Cog):
                 leaderboard += f"{i}. {member.display_name if member else 'Inconnu'} - Niveau {level} ({xp} XP)\n"
             await ctx.send(leaderboard)
 
-        conn.close()
+        # conn.close()
 
 
 async def setup(bot):

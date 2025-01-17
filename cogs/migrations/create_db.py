@@ -48,8 +48,8 @@ def create_turso_db():
         print("Tables après création:", result)
 
         # Fermer la connexion à la base de données
-        conn.commit()
-        conn.close()
+        # conn.commit()
+        # conn.close()
         print("Base de données créée et fermée avec succès.")
 
     except Exception as e:

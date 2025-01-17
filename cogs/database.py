@@ -64,8 +64,8 @@ class Database(commands.Cog):
                 (str(member.id), str(ctx.guild.id), total_xp, 0)
             )
 
-        conn.commit()
-        conn.close()
+        # conn.commit()
+        # conn.close()
 
         await ctx.send(f"Ajouté {xp} XP à {member.mention}. Nouveau total : {total_xp} XP.")
 
@@ -85,7 +85,7 @@ class Database(commands.Cog):
 
         if not result:
             await ctx.send(f"{member.mention} n'a pas encore d'XP enregistré.")
-            conn.close()
+            # conn.close()
             return
 
         total_xp = max(0, result[0] - xp)
@@ -95,8 +95,8 @@ class Database(commands.Cog):
             (total_xp, str(member.id), str(ctx.guild.id))
         )
 
-        conn.commit()
-        conn.close()
+        # conn.commit()
+        # conn.close()
 
         await ctx.send(f"Retiré {xp} XP à {member.mention}. Nouveau total : {total_xp} XP.")
 
