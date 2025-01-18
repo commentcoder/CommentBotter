@@ -93,7 +93,7 @@ class Leveling(commands.Cog):
             color=5814783
         )
 
-        embed.add_field(name="⭐ Noter un de mes cours Udemy", value="Donner une note à une de mes formations payantes Udemy : **+100 XP**", inline=False)
+        embed.add_field(name="⭐ Noter un de mes cours Udemy", value="Donner une note à une de mes formations payantes Udemy !cours pour avoir la liste: **+100 XP**", inline=False)
         embed.add_field(name="📩 Inviter un nouveau membre", value="Invitez vos amis à rejoindre le serveur : **+30 XP**", inline=False)
         embed.add_field(name="🤝 Aider quelqu'un dans [le forum d'aide])(https://discord.com/channels/1115999077776240682/1307900991563108382)", value="Donnez une réponse utile ou résolvez un problème : **+30 XP**", inline=False)
         embed.add_field(name="💬 Poster un message", value="Postez un message (1 fois par minute pour éviter le flood) : **+1 XP**", inline=False)

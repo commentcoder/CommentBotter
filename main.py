@@ -8,12 +8,18 @@ load_dotenv()
 token : str = os.getenv("DISCORD_TOKEN") or ""
 
 class CommentBotter(commands.Bot):
-  async def setup_hook(self):
-    for extension in ["database", "leveling", "social", "welcome"]:
-      await self.load_extension(f'cogs.{extension}')
+    async def setup_hook(self):
+        for filename in os.listdir("./cogs"):
+            if filename.endswith(".py"):
+                extension = f"cogs.{filename[:-3]}"
+                try:
+                    await self.load_extension(extension)
+                    print(f"Loaded extension: {extension}")
+                except Exception as e:
+                    print(f"Failed to load extension {extension}: {e}")
     
-    await self.tree.sync()
-    print("Les commandes slash ont été synchronisées.")
+        await self.tree.sync()
+        print("Les commandes slash ont été synchronisées.")
 
 intents = discord.Intents.all()
 bot = CommentBotter(command_prefix='!', intents=intents)

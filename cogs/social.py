@@ -1,13 +1,6 @@
 from discord.ext import commands
+from ..settings import SOCIALS
 
-socials = {
-    "youtube": "https://www.youtube.com/channel/UCEztUC2WwKEDkVl9c6oUoTw?sub_confirmation=1",
-    "udemy": "https://www.udemy.com/user/thomas-collart/?referralCode=F0901265E01C7FDADABC",
-    "tiktok": "https://www.tiktok.com/@commentcoder",
-    "instagram": "https://www.instagram.com/commentcoder_com",
-    "github": "https://github.com/commentcoder",
-    "linkedin": "https://linkedin.com/in/thomascollart/"
-}
 
 class Social(commands.Cog):
     def __init__(self, bot):
@@ -16,27 +9,27 @@ class Social(commands.Cog):
 
     @commands.hybrid_command()
     async def github(self, ctx):
-        await ctx.send(socials["github"])
+        await ctx.send(SOCIALS["github"])
 
     @commands.hybrid_command()
     async def instagram(self, ctx):
-        await ctx.send(socials["instagram"])
+        await ctx.send(SOCIALS["instagram"])
 
     @commands.hybrid_command()
     async def linkedin(self, ctx):
-        await ctx.send(socials["linkedin"])
+        await ctx.send(SOCIALS["linkedin"])
 
     @commands.hybrid_command()
     async def tiktok(self, ctx):
-        await ctx.send(socials["tiktok"])
+        await ctx.send(SOCIALS["tiktok"])
 
     @commands.hybrid_command()
     async def udemy(self, ctx):
-        await ctx.send(socials["udemy"])
+        await ctx.send(SOCIALS["udemy"])
 
     @commands.hybrid_command()
     async def youtube(self, ctx):
-        await ctx.send(socials["youtube"])
+        await ctx.send(SOCIALS["youtube"])
     
 
 async def setup(bot):
