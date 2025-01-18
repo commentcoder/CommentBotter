@@ -95,13 +95,13 @@ class Leveling(commands.Cog):
     async def xp(self, ctx):
         embed = discord.Embed(
             title="🌟 Comment gagner de l'expérience ? 🌟",
-            description="🚀 Voici toutes les façons de gagner de l'expérience sur le serveur !",
+            description="Voici toutes les façons de gagner de l'expérience sur le serveur !",
             color=5814783
         )
 
         embed.add_field(name="💬 Poster un message", value="Postez un message (1 fois par minute pour éviter le flood) : **+1 XP**", inline=False)
         embed.add_field(name="📩 Inviter un nouveau membre", value="Invitez vos amis à rejoindre le serveur : **+30 XP**", inline=False)
-        embed.add_field(name="🤝 Aider quelqu'un dans le forum d'aide", value="Donnez une réponse utile ou résolvez un problème : **+30 XP**", inline=False)
+        embed.add_field(name="🤝 Aider quelqu'un dans le forum #🆘┃forum-aide", value="Donnez une réponse utile ou résolvez un problème : **+30 XP**", inline=False)
         embed.add_field(name="🐞 Créer une issue sur GitHub", value="Signalez un bug ou une amélioration pertinente : **+10 XP**", inline=False)
         embed.add_field(name="🔄 Faire une Pull Request sur GitHub", value="Contribuez à nos projets open-source : **+20 XP**", inline=False)
         embed.add_field(name="✅ Pull Request acceptée", value="Votre PR est validée : **+30 XP**", inline=False)
