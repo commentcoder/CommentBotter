@@ -92,6 +92,31 @@ class Leveling(commands.Cog):
                 print(f"Impossible de modifier le pseudo de {member} (permissions insuffisantes).")
 
     @commands.hybrid_command()
+    async def xp(self, ctx):
+        embed = discord.Embed(
+            title="🌟 Comment gagner de l'expérience ? 🌟",
+            description="🚀 Voici toutes les façons de gagner de l'expérience sur le serveur !",
+            color=5814783
+        )
+
+        embed.add_field(name="💬 Poster un message", value="Postez un message (1 fois par minute pour éviter le flood) : **+1 XP**", inline=False)
+        embed.add_field(name="📩 Inviter un nouveau membre", value="Invitez vos amis à rejoindre le serveur : **+30 XP**", inline=False)
+        embed.add_field(name="🤝 Aider quelqu'un dans le forum d'aide", value="Donnez une réponse utile ou résolvez un problème : **+30 XP**", inline=False)
+        embed.add_field(name="🐞 Créer une issue sur GitHub", value="Signalez un bug ou une amélioration pertinente : **+10 XP**", inline=False)
+        embed.add_field(name="🔄 Faire une Pull Request sur GitHub", value="Contribuez à nos projets open-source : **+20 XP**", inline=False)
+        embed.add_field(name="✅ Pull Request acceptée", value="Votre PR est validée : **+30 XP**", inline=False)
+        embed.add_field(name="🏆 Gagner un événement", value="Participez et gagnez nos événements : **Variable**", inline=False)
+        # embed.add_field(name="📚 Partager une ressource utile", value="Postez un tutoriel, une astuce ou une ressource pertinente dans le salon dédié : **+10 XP**", inline=False)
+        # embed.add_field(name="🎨 Créer un contenu communautaire", value="Créez une bannière, un emoji ou un sticker pour le serveur : **+25 XP**", inline=False)
+        # embed.add_field(name="🎮 Participer à un mini-jeu", value="Prenez part à nos mini-jeux ou quiz Discord : **+5 XP** par participation.", inline=False)
+        # embed.add_field(name="🎤 Assister à un événement communautaire", value="Soyez présent à nos soirées vocales ou ateliers : **+20 XP**", inline=False)
+        # embed.add_field(name="✨ Être un membre actif et respectueux", value="Chaque semaine, les membres exemplaires reçoivent un bonus : **+10 XP**", inline=False)
+
+        embed.set_footer(text="Merci pour votre participation 👨‍💻 !")
+
+        await ctx.send(embed=embed)
+
+    @commands.hybrid_command(aliases=["level"])
     async def rank(self, ctx, member: discord.Member):
         """Donne le niveau d'un membre."""
         member = member or ctx.author
@@ -110,7 +135,7 @@ class Leveling(commands.Cog):
             await ctx.send(f"{member.mention} est au niveau {level} avec {xp} XP.")
         # conn.close()
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(aliases=["ladder", "leaderboard"])
     async def levels(self, ctx):
         """Donne le classement des membres avec le plus gros niveau."""
         conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
@@ -122,7 +147,6 @@ class Leveling(commands.Cog):
         """, (str(ctx.guild.id),))
         results = cursor.fetchall()
 
-        print("results", results)
 
         if not results:
             await ctx.send("Le classement est vide.")
