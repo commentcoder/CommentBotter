@@ -1,15 +1,9 @@
-import os
-from dotenv import load_dotenv
 import libsql_experimental as libsql
 import discord
 from discord.ext import commands
 from .migrations.create_db import create_turso_db
+from ..settings import AUTHORIZED_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
 
-load_dotenv()
-
-AUTHORIZED_CHANNEL_ID : str = os.getenv("DEBUG_CHANNEL_ID") or ""
-TURSO_URL: str = os.getenv("TURSO_URL") or ""
-TURSO_TOKEN: str = os.getenv("TURSO_TOKEN") or ""
 
 class Database(commands.Cog):
     def __init__(self, bot):
@@ -17,8 +11,6 @@ class Database(commands.Cog):
 
     async def cog_check(self, ctx):
         if ctx.author.id == ctx.bot.owner_id:
-            return True
-        if ctx.author.guild_permissions.administrator:
             return True
         if ctx.channel.id != AUTHORIZED_CHANNEL_ID:
             raise commands.CheckFailure(f"Cette commande ne peut être exécutée que dans le canal <#{AUTHORIZED_CHANNEL_ID}>.")

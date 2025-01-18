@@ -1,18 +1,10 @@
 import json
 import libsql_experimental as libsql
-import os
 import time
-from dotenv import load_dotenv
 import discord
 from discord.ext import commands
+from ..settings import INVITE_XP, WELCOME_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
 
-load_dotenv()
-
-WELCOME_CHANNEL_ID : int = int(os.getenv("WELCOME_CHANNEL_ID") or 1213811649665044611)
-TURSO_URL : str = os.getenv("TURSO_URL") or ""
-TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
-
-INVITE_XP = 30
 
 class Welcome(commands.Cog):
     def __init__(self, bot):

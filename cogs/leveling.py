@@ -1,14 +1,8 @@
-import os
 import time
 import libsql_experimental as libsql
-from dotenv import load_dotenv
 import discord
 from discord.ext import commands
-
-load_dotenv()
-
-TURSO_URL: str = os.getenv("TURSO_URL") or ""
-TURSO_TOKEN: str = os.getenv("TURSO_TOKEN") or ""
+from ..settings import TURSO_URL, TURSO_TOKEN
 
 
 def calculate_level(total_xp):
