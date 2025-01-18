@@ -2,7 +2,7 @@ import libsql_experimental as libsql
 import discord
 from discord.ext import commands
 from .migrations.create_db import create_turso_db
-from ..settings import AUTHORIZED_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
+from settings import AUTHORIZED_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
 
 
 class Database(commands.Cog):

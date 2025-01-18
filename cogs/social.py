@@ -1,5 +1,5 @@
 from discord.ext import commands
-from ..settings import SOCIALS
+from settings import SOCIALS
 
 
 class Social(commands.Cog):

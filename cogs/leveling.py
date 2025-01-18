@@ -2,7 +2,7 @@ import time
 import libsql_experimental as libsql
 import discord
 from discord.ext import commands
-from ..settings import TURSO_URL, TURSO_TOKEN
+from settings import TURSO_URL, TURSO_TOKEN
 
 
 def calculate_level(total_xp):

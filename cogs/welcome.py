@@ -3,7 +3,7 @@ import libsql_experimental as libsql
 import time
 import discord
 from discord.ext import commands
-from ..settings import INVITE_XP, WELCOME_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
+from settings import INVITE_XP, WELCOME_CHANNEL_ID, TURSO_URL, TURSO_TOKEN
 
 
 class Welcome(commands.Cog):

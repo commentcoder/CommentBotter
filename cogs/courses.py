@@ -1,7 +1,7 @@
 import libsql_experimental as libsql
 import discord
 from discord.ext import commands
-from ..settings import COURSES
+from settings import COURSES
 
 class Courses(commands.Cog):
     def __init__(self, bot):
