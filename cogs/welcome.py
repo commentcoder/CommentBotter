@@ -12,7 +12,7 @@ WELCOME_CHANNEL_ID : int = int(os.getenv("WELCOME_CHANNEL_ID") or 12138116496650
 TURSO_URL : str = os.getenv("TURSO_URL") or ""
 TURSO_TOKEN : str = os.getenv("TURSO_TOKEN") or ""
 
-INVITE_XP = 50
+INVITE_XP = 30
 
 class Welcome(commands.Cog):
     def __init__(self, bot):
@@ -56,10 +56,10 @@ class Welcome(commands.Cog):
         if inviter:
             conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
             cursor = conn.cursor()
-            cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
+            cursor.execute("SELECT invited_members, total_xp FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
             result = cursor.fetchone()
 
-            total_xp = result[0] if result else 0
+            total_xp = int(result[1] if result else 0)
 
             if result:
                 invited_members = json.loads(result[0]) 
@@ -69,8 +69,7 @@ class Welcome(commands.Cog):
                     await welcome_channel.send(f"Re {member.mention} !")
                     return
                 
-                # total_xp = int(result[0] if result else 0)
-                # total_xp += INVITE_XP
+                total_xp += INVITE_XP
                 cursor.execute(
                     "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
                     (total_xp, str(inviter.id), str(member.guild.id))
@@ -92,7 +91,7 @@ class Welcome(commands.Cog):
             # conn.close()
 
             await welcome_channel.send(
-                f"Bienvenue {member.mention} ! (Invité par {inviter.mention} qui a invité : {invites_count} membres)."
+                f"Bienvenue {member.mention} ! Invité par {inviter.mention} (+30 XP)."
             )
         else:
             await welcome_channel.send(f"Bienvenue {member.mention} !")
