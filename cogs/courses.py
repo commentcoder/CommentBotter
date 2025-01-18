@@ -23,7 +23,7 @@ class Courses(commands.Cog):
                 inline=False
             )
 
-        embed.set_image(url="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg")
+        embed.set_image(url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Udemy_logo.svg/320px-Udemy_logo.svg.png")
         embed.set_footer(text="N'hésitez pas à me poser des questions si besoin !")
         await ctx.send(embed=embed)
 
