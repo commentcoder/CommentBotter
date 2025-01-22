@@ -48,10 +48,10 @@ class Welcome(commands.Cog):
         if inviter:
             conn = libsql.connect(database=TURSO_URL, auth_token=TURSO_TOKEN)
             cursor = conn.cursor()
-            cursor.execute("SELECT invited_members, total_xp FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
+            cursor.execute("SELECT invited_members FROM invites WHERE user_id = ? AND guild_id = ?", (str(inviter.id), str(member.guild.id)))
             result = cursor.fetchone()
 
-            total_xp = int(result[1] if result else 0)
+            # total_xp = int(result[1] if result else 0)
 
             if result:
                 invited_members = json.loads(result[0]) 
@@ -61,16 +61,16 @@ class Welcome(commands.Cog):
                     await welcome_channel.send(f"Re {member.mention} !")
                     return
                 
-                total_xp += INVITE_XP
-                cursor.execute(
-                    "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
-                    (total_xp, str(inviter.id), str(member.guild.id))
-                )
-            else:
-                cursor.execute(
-                    "INSERT INTO users (user_id, guild_id, total_xp, level) VALUES (?, ?, ?, ?)",
-                    (str(member.id), str(member.guild.id), total_xp, 0)
-                )
+                # total_xp += INVITE_XP
+                # cursor.execute(
+                #     "UPDATE users SET total_xp = ? WHERE user_id = ? AND guild_id = ?",
+                #     (total_xp, str(inviter.id), str(member.guild.id))
+                # )
+            # else:
+            #     cursor.execute(
+            #         "INSERT INTO users (user_id, guild_id, total_xp, level) VALUES (?, ?, ?, ?)",
+            #         (str(member.id), str(member.guild.id), total_xp, 0)
+            #     )
 
             if result:
                 invited_members.append(str(member.id))
